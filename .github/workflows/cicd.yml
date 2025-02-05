@@ -15,7 +15,7 @@ jobs:
 
       - name: 🚀 Deploy to VPS
         run: |
-          ssh root@buoncf.jp << 'EOF'
+          ssh -T root@buoncf.jp << 'EOF'
             cd /var/www/ci_cd
             git pull origin main
             npm install
