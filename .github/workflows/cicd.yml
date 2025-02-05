@@ -22,5 +22,5 @@ jobs:
             cd /var/www/cicd
             git pull origin main
             npm install
-            pm2 restart all
+            npm run dev
           EOF
