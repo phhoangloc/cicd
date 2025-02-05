@@ -15,5 +15,6 @@ jobs:
 
       - name: 🚀 Deploy to VPS
         run: |
-    echo "VPS_USER=${{ secrets.VPS_USER }}"
-    echo "VPS_HOST=${{ secrets.VPS_HOST }}"
+          echo "This is a test message"
+          echo "VPS_USER=${{ secrets.VPS_USER }}"
+          echo "VPS_HOST=${{ secrets.VPS_HOST }}"
