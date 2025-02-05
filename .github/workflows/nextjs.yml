@@ -15,7 +15,7 @@ jobs:
 
       - name: Deploy to VPS
         run: |
-          ssh root@buooncf.jp
+          ssh root@buoncf.jp
             cd /var/www/cicd
             git pull origin main
             npm install
