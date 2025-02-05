@@ -24,6 +24,7 @@ jobs:
             npm install
             npm run build
             pm2 stop "my-app"
+            pm2 delete "my-app"
             pm2 start npm --name "my-app" -- start
             pm2 save
           EOF
