@@ -22,7 +22,8 @@ jobs:
 
       - name: Deploy to VPS
         run: |
-          sshpass -p ${{ secrets.VPS_PASSWORD }} ssh -T ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}
+          sshpass -p ${{ secrets.VPS_PASSWORD }} 
+            ssh -v -o StrictHostKeyChecking=no -T -p ${{ secrets.VPS_PORT }} ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}
             cd /var/www/cicd
             git pull origin main
             npm install
