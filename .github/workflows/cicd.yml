@@ -2,23 +2,25 @@ name: Deploy to VPS
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: SSH to VPS and Deploy
-        uses: appleboy/ssh-action@master
+      - name: Check out repository
+        uses: actions/checkout@v3
+      
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          script: |
-            cd /path/to/your/app
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: Deploy via SSH
+        run: |
+          ssh -o StrictHostKeyChecking=no user@your-vps-ip << 'EOF'
+            cd /path/to/project
             git pull origin main
             npm install
-            npm run build
-            pm2 restart my-next-app
+            pm2 restart all
+          EOF
