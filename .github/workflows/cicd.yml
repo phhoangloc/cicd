@@ -18,8 +18,8 @@ jobs:
 
       - name: Deploy via SSH
         run: |
-          ssh -o StrictHostKeyChecking=no user@your-vps-ip << 'EOF'
-            cd /path/to/project
+          ssh -o StrictHostKeyChecking=no root@buoncf.jp << 'EOF'
+            cd /var/www/cicd
             git pull origin main
             npm install
             pm2 restart all
