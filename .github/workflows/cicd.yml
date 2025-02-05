@@ -16,12 +16,14 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
-      - name: Deploy via SSH
+      - name: Build via SSH
         run: |
           ssh -o StrictHostKeyChecking=no root@buoncf.jp << 'EOF'
             cd /var/www/cicd
             git pull origin main
             npm install
             npm run build
-            pm2 restart my-app
+            pm2 stop "my-app"
+            pm2 start npm --name "my-app" -- start
+            pm2 save
           EOF
