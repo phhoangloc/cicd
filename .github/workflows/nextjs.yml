@@ -26,5 +26,6 @@ jobs:
             cd /var/www/cicd
             git pull origin main
             npm install
-            pm2 restart all  # Nếu dùng PM2 để chạy server
+            npm run dev
+            # pm2 restart all  # Nếu dùng PM2 để chạy server
           EOF
