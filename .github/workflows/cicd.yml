@@ -1,0 +1,51 @@
+name: CI/CD for Next.js
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v3
+
+      - name: 🏗️ Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: 📦 Install dependencies
+        run: npm install
+
+      - name: 🔍 Lint code
+        run: npm run lint
+
+      - name: 🧪 Run tests
+        run: npm test
+
+      - name: 🏗️ Build Next.js
+        run: npm run build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v3
+
+      - name: 🏗️ Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: 🚀 Deploy to Vercel
+        run: npx vercel --prod
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
